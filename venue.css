@@ -76,3 +76,59 @@ button,input,textarea{font-family:var(--font-ui)}
 @media(max-width:480px){
   .hero h1{font-size:clamp(38px,10vw,45px)}
 }
+
+
+/* Cinematic photographic sections with readable Vietnamese captions. */
+.hero-image-panel{height:515px;min-width:0;margin:0;position:relative;isolation:isolate;overflow:hidden;border-radius:22px 22px 70px 22px;border:1px solid rgba(239,117,145,.30);background:radial-gradient(circle at 42% 55%,#6a2635,#150b13 72%);box-shadow:0 40px 110px rgba(0,0,0,.40),0 0 70px rgba(225,29,72,.09)}
+.hero-image-panel::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,10,12,.10),rgba(10,10,12,.08) 35%,rgba(10,10,12,.90))}
+.hero-image-panel img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.91) contrast(1.09);transition:transform .85s ease}
+.hero-image-panel:hover img{transform:scale(1.035)}
+.hero-image-panel figcaption{position:absolute;z-index:1;left:30px;right:30px;bottom:27px;display:flex;flex-direction:column;gap:6px}
+.hero-image-panel figcaption span{font-size:11px;font-weight:700;letter-spacing:.20em;color:#fff}
+.hero-image-panel figcaption small{color:#f5d3dc;font-size:11px}
+.gallery-section{background:linear-gradient(180deg,#0A0A0C 0%,#120d12 52%,#0A0A0C 100%);padding-top:85px;padding-bottom:110px}
+.gallery-heading{margin-bottom:30px}
+.bar-gallery{display:grid;grid-template-columns:1.12fr .89fr .89fr;gap:18px}
+.gallery-tile{min-width:0;min-height:360px;margin:0;position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(255,255,255,.13);border-radius:16px;background:linear-gradient(160deg,#321724,#0b0a0d);box-shadow:0 14px 40px #0005}
+.gallery-tile img{display:block;width:100%;height:100%;min-height:360px;object-fit:cover;object-position:center;filter:saturate(.78) contrast(1.06);transition:transform .8s cubic-bezier(.21,.8,.24,1),filter .5s}
+.gallery-tile:hover img{transform:scale(1.055);filter:saturate(1) contrast(1.07)}
+.gallery-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 36%,rgba(4,3,5,.91));pointer-events:none}
+.gallery-tile figcaption{position:absolute;z-index:1;bottom:22px;left:22px;right:22px;display:flex;flex-direction:column;gap:5px}
+.gallery-tile figcaption span{font-size:10px;color:#f28da4;letter-spacing:.19em;font-weight:700}
+.gallery-tile figcaption strong{font-family:var(--font-heading),Georgia,serif;font-size:clamp(17px,2vw,24px);line-height:1.45;font-weight:500;color:#fff}
+.gallery-tile figcaption small{font-size:11px;color:#d2c5cc}
+.gallery-tile figcaption a{text-decoration:underline;text-decoration-color:#ae8790;text-underline-offset:3px}
+.gallery-tile figcaption a:hover{color:#fff}
+.gallery-disclaimer{font-size:12px;color:#b8a9b1;margin:19px 0 0;line-height:1.7}
+html{overflow-x:clip}
+/* Progressive enhancement: page stays visible with JavaScript disabled. */
+@media(prefers-reduced-motion:no-preference){
+  html.scroll-reveal-ready [data-reveal]{opacity:0;transform:translate3d(-56px,0,0);transition:opacity .75s ease,transform .83s cubic-bezier(.2,.72,.19,1);transition-delay:var(--reveal-delay,0ms)}
+  html.scroll-reveal-ready [data-reveal="right"]{transform:translate3d(56px,0,0)}
+  html.scroll-reveal-ready [data-reveal].is-visible{opacity:1;transform:translate3d(0,0,0)}
+}
+@media(max-width:970px){
+  .hero-image-panel{height:445px}
+  .bar-gallery{gap:12px}
+  .gallery-tile,.gallery-tile img{min-height:300px}
+}
+@media(max-width:760px){
+  .hero-image-panel{height:310px;width:100%;border-radius:18px 18px 40px 18px}
+  .gallery-section{padding-top:62px;padding-bottom:65px}
+  .bar-gallery{grid-template-columns:1fr 1fr;gap:12px}
+  .gallery-tile-featured{grid-column:1/-1}
+  .gallery-tile-featured,.gallery-tile-featured img{height:310px;min-height:310px}
+  .gallery-tile:not(.gallery-tile-featured),.gallery-tile:not(.gallery-tile-featured) img{min-height:275px;height:275px}
+  .gallery-tile figcaption{bottom:16px;left:14px;right:14px}
+}
+@media(max-width:480px){
+  .bar-gallery{grid-template-columns:1fr}
+  .gallery-tile-featured{grid-column:auto}
+  .gallery-tile,.gallery-tile img,.gallery-tile-featured,.gallery-tile-featured img,.gallery-tile:not(.gallery-tile-featured),.gallery-tile:not(.gallery-tile-featured) img{height:315px;min-height:315px}
+  .gallery-tile figcaption{left:20px;right:20px}
+}
+@media(prefers-reduced-motion:reduce){
+  html.scroll-reveal-ready [data-reveal]{opacity:1!important;transform:none!important;transition:none!important}
+  .hero-image-panel img,.gallery-tile img{transition:none!important}
+  .hero-image-panel:hover img,.gallery-tile:hover img{transform:none}
+}
