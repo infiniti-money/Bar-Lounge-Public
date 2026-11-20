@@ -230,3 +230,11 @@ body.lightbox-open{overflow:hidden}
 @media(max-width:760px){.guest-service-inner{align-items:flex-start;flex-wrap:wrap;padding:12px 0}.guest-service-inner p{flex:1 1 calc(100% - 30px)}.guest-service-inner a{margin-left:21px}}
 
 .guest-noscript{margin-top:16px;margin-bottom:16px;padding:14px 18px;border:1px solid #b84d63;background:#361923;color:#ffe5ec;border-radius:9px;font-size:13px}.guest-noscript a{color:#fff;text-decoration:underline}
+
+/* Installable GitHub Pages guest site; this control is shown only if browser supports installation. */
+.footer-guest-app{min-width:0;display:flex;align-items:center;flex-wrap:wrap;gap:10px 18px}
+.footer-guest-app p{margin:0}
+.install-guest-button{color:#fff;background:rgba(225,29,72,.19);border:1px solid rgba(255,255,255,.24);border-radius:8px;padding:9px 13px;min-height:44px;font-size:11px;font-weight:700;letter-spacing:.035em}
+.install-guest-button:hover{background:rgba(225,29,72,.4);border-color:#f17696}
+.install-guest-button[hidden]{display:none!important}
+@media(max-width:760px){.footer-guest-app{justify-content:center}}

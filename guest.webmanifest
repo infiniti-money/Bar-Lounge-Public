@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "Tân Design Bar & Lounge",
+  "short_name": "Tân Design",
+  "description": "Không gian bar và lounge, thông tin quán, thực đơn và liên hệ",
+  "lang": "vi",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0A0A0C",
+  "theme_color": "#E11D48",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
