@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="vi" data-site-host="github-pages">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0a090b">
+  <meta name="description" content="Tân Design Bar & Lounge — không gian gặp gỡ, thực đơn, check-in, sự kiện và đặt bàn. Mở cửa 16:00–23:00 hằng ngày.">
+  <meta property="og:title" content="Tân Design | Bar & Lounge">
+  <meta property="og:description" content="Khám phá trải nghiệm buổi tối tại Tân Design. Đặt bàn, check-in và gọi món trực tiếp tại bàn.">
+  <title>Tân Design | Bar & Lounge</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="stylesheet" href="./venue.css">
+  <script src="./config.js"></script>
+  <script type="module" src="./venue.js"></script>
+</head>
+<body>
+<a href="#main" class="skip">Bỏ qua điều hướng</a>
+<header class="site-header">
+  <a href="#home" class="wordmark" aria-label="Tân Design - trang chủ"><span class="mark">T<span class="mark-cross">✦</span>D</span><span>TÂN DESIGN <small>BAR & LOUNGE</small></span></a>
+  <button class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Mở menu">☰</button>
+  <nav id="site-nav" class="site-nav" aria-label="Điều hướng chính">
+    <a href="#about">Giới thiệu</a><a href="#events">Sự kiện</a><a href="#menu">Thực đơn</a><a href="#order-card">Gọi món</a><a href="#checkin">Check-in</a><a href="#contact">Liên hệ</a>
+    <a href="#booking" class="nav-book">Đặt bàn <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>
+<main id="main">
+  <section class="hero" id="home" aria-labelledby="hero-title">
+    <div class="hero-glow"></div>
+    <div class="hero-inner wrap">
+      <div class="hero-copy"><p class="eyebrow"><span class="line"></span> THE NIGHT IS YOURS · TÂN DESIGN</p>
+        <h1 id="hero-title">Nơi câu chuyện<br><em>bắt đầu</em> sau hoàng hôn.</h1>
+        <p class="hero-lead">Một điểm hẹn cho những cuộc trò chuyện, ly đồ uống yêu thích và khoảnh khắc đáng nhớ. Khám phá Tân Design theo cách của bạn.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#booking">ĐẶT BÀN NGAY <span>↗</span></a><a class="btn btn-ghost" href="#menu">KHÁM PHÁ THỰC ĐƠN <span>↗</span></a></div>
+        <div class="hero-meta"><span><b>16:00 – 23:00</b><small>HẰNG NGÀY</small></span><span class="meta-sep"></span><span><b>HƯNG YÊN</b><small>NO1 TÂN PHÚ · VIỆT YÊN</small></span></div>
+      </div>
+      <div class="hero-art" role="img" aria-label="Đồ họa minh họa ly cocktail với ánh sáng đỏ và nền đen">
+        <div class="halo"></div><div class="glass"><div class="drink"></div><div class="rim"></div><div class="stem"></div><div class="foot"></div><div class="garnish"></div></div>
+        <span class="art-caption">CURATED NIGHTS <span>01 / 04</span></span>
+      </div>
+    </div>
+    <div class="hero-bottom wrap"><span>EST. · TÂN DESIGN</span><span>SCROLL TO EXPLORE <span aria-hidden="true">↓</span></span></div>
+  </section>
+  <section class="section about wrap" id="about">
+    <div><p class="eyebrow">01 / OUR STORY</p><h2>Một không gian.<br><em>Muôn trải nghiệm.</em></h2></div>
+    <div class="about-copy"><p>Hẹn bạn tại Tân Design Bar & Lounge — nơi ánh đèn ấm, âm nhạc và đồ uống tạo nên nhịp điệu riêng cho mỗi buổi tối.</p><p class="fine">Website giới thiệu và hỗ trợ yêu cầu đặt bàn, check-in, gọi món tại bàn. Mọi yêu cầu được nhân viên xác nhận trước khi phục vụ.</p><a class="text-link" href="#contact">KHÁM PHÁ ĐỊA CHỈ <span>↗</span></a></div>
+  </section>
+  <section class="section section-contrast" id="events"><div class="wrap">
+    <div class="section-heading"><div><p class="eyebrow">02 / THE EXPERIENCE</p><h2>Khoảnh khắc <em>đáng mong chờ.</em></h2></div><p>Thông tin sự kiện sẽ được cập nhật tại đây khi quán công bố lịch chính thức.</p></div>
+    <div class="event-grid" id="event-grid"><article class="event-card"><span class="event-index">01</span><span class="event-symbol">♫</span><h3>Music & Nightlife</h3><p>Lịch chương trình sẽ được công bố.</p><span class="event-status">ĐANG CẬP NHẬT</span></article><article class="event-card"><span class="event-index">02</span><span class="event-symbol">✧</span><h3>Signature Moments</h3><p>Cập nhật trải nghiệm mới tại quán.</p><span class="event-status">ĐANG CẬP NHẬT</span></article><article class="event-card"><span class="event-index">03</span><span class="event-symbol">◈</span><h3>Private Gatherings</h3><p>Liên hệ để trao đổi nhu cầu của bạn.</p><a href="#contact" class="event-status">LIÊN HỆ TƯ VẤN ↗</a></article></div>
+  </div></section>
+  <section class="section wrap" id="menu"><div class="section-heading"><div><p class="eyebrow">03 / THE MENU</p><h2>Chọn hương vị <em>của bạn.</em></h2></div><p>Thực đơn được đồng bộ từ POS. Giá chưa bao gồm phí dịch vụ và thuế theo chính sách của quán.</p></div>
+    <div id="menu-state" class="notice" role="status" aria-live="polite">Đang tải thực đơn…</div>
+    <div class="menu-filters" id="menu-filters" role="group" aria-label="Lọc thực đơn theo nhóm món" hidden></div>
+    <div class="menu-grid" id="menu-grid"></div>
+    <div class="order-card" id="order-card"><div><p class="eyebrow">ORDER AT YOUR TABLE</p><h3>Gọi món ngay tại bàn</h3><p>Nhập đúng số bàn đang ngồi. Yêu cầu sẽ đến nhân viên phục vụ để xác nhận trước khi gửi pha chế.</p></div>
+      <form id="order-form"><label for="table-name">SỐ BÀN <span aria-hidden="true">*</span></label><input id="table-name" name="tableName" placeholder="Ví dụ: S01, VIP01" maxlength="50" required autocomplete="off">
+        <label for="order-note">GHI CHÚ CHO PHỤC VỤ</label><textarea id="order-note" rows="2" maxlength="300" placeholder="Ít đá, lưu ý dị ứng…"></textarea>
+        <p class="order-tip"><span aria-hidden="true">✦</span> Bàn cần được nhân viên mở trước khi khách gửi món. Yêu cầu phải được phục vụ xác nhận; chưa phải hóa đơn thanh toán.</p><div id="cart-lines" class="cart-lines">Chưa có món được chọn.</div><button class="btn btn-primary" type="submit">GỬI YÊU CẦU GỌI MÓN <span>↗</span></button><p class="form-message" id="order-message" role="status"></p>
+      </form>
+    </div>
+    <aside id="tracking-panel" class="tracking-panel" hidden role="status" aria-live="polite">
+      <div><small>THEO DÕI YÊU CẦU CỦA BẠN</small><strong id="tracking-code"></strong></div>
+      <p id="tracking-state">Đang chờ nhân viên xác nhận.</p>
+      <p class="tracking-note">Bạn có thể cung cấp mã yêu cầu cho nhân viên. Trạng thái được cập nhật khi trang này đang mở; không lưu số điện thoại trên thiết bị của bạn.</p>
+    </aside>
+  </section>
+  <section class="section section-contrast" id="booking"><div class="wrap booking-layout"><div class="booking-intro"><p class="eyebrow">04 / YOUR RESERVATION</p><h2>Dành một chỗ<br>cho <em>đêm nay.</em></h2><p>Gửi yêu cầu đặt bàn. Nhân viên sẽ xác nhận tình trạng bàn với bạn qua số điện thoại; gửi biểu mẫu chưa có nghĩa là đặt bàn thành công.</p><div class="booking-line"></div><p><strong>GIỜ MỞ CỬA</strong><br>16:00–23:00 · Hằng ngày</p><p><strong>HỖ TRỢ QUA ZALO</strong><br><a href="https://zalo.me/0867899987" target="_blank" rel="noopener noreferrer">0867899987 ↗</a></p></div>
+    <form id="booking-form" class="form-panel"><h3>Yêu cầu đặt bàn</h3><div class="form-columns"><label>HỌ VÀ TÊN <input name="customerName" required maxlength="120" placeholder="Tên người đặt bàn"></label><label>SỐ ĐIỆN THOẠI <input name="phone" type="tel" required maxlength="30" placeholder="09…"></label><label>NGÀY VÀ GIỜ <input name="startAt" type="datetime-local" required></label><label>SỐ KHÁCH <input name="guests" type="number" min="1" max="50" value="2" required></label></div><label>YÊU CẦU KHÁC<textarea name="note" maxlength="500" rows="3" placeholder="Vị trí ngồi mong muốn, dịp đặc biệt…"></textarea></label><button type="submit" class="btn btn-primary">GỬI YÊU CẦU ĐẶT BÀN <span>↗</span></button><p class="form-message" id="booking-message" role="status"></p></form>
+  </div></section>
+  <section class="section wrap checkin" id="checkin"><div><p class="eyebrow">05 / YOUR MOMENT</p><h2>Check-in.<br><em>Lưu dấu cuộc hẹn.</em></h2><p>Đã tới quán? Gửi thông tin check-in để nhân viên đón tiếp. Chúng tôi không tự đăng ảnh hoặc thông tin của bạn lên mạng xã hội.</p></div><form id="checkin-form" class="form-panel"><h3>Thông báo tôi đã đến</h3><label>HỌ VÀ TÊN<input name="name" required maxlength="120" placeholder="Tên của bạn"></label><label>SỐ ĐIỆN THOẠI<input name="phone" type="tel" required maxlength="30" placeholder="Để nhân viên liên hệ"></label><label>GHI CHÚ<textarea name="note" maxlength="300" rows="2" placeholder="Tên người đặt bàn, khu vực hẹn…"></textarea></label><button class="btn btn-primary" type="submit">CHECK-IN <span>↗</span></button><p class="form-message" id="checkin-message" role="status"></p></form></section>
+  <section class="section section-contrast" id="contact"><div class="wrap"><p class="eyebrow">06 / FIND US</p><div class="contact-grid"><div><h2>Hẹn gặp <em>tối nay.</em></h2><p>NO1 Tân Phú – Việt Yên – Hưng Yên, Việt Nam</p><p class="contact-hours">MỞ CỬA · 16:00–23:00 HẰNG NGÀY</p><div class="hero-actions"><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/search/?api=1&amp;query=No1%20T%C3%A2n%20Ph%C3%BA%20Vi%E1%BB%87t%20Y%C3%AAn%20H%C6%B0ng%20Y%C3%AAn%20Vi%E1%BB%87t%20Nam">CHỈ ĐƯỜNG ↗</a><a class="btn btn-ghost" target="_blank" rel="noopener noreferrer" href="https://zalo.me/0867899987">LIÊN HỆ ZALO ↗</a></div></div><div class="location-panel"><span class="location-pin">⌖</span><strong>TÂN DESIGN</strong><span>BAR & LOUNGE</span><p>NO1 TÂN PHÚ · VIỆT YÊN · HƯNG YÊN</p><small>Nhấn “Chỉ đường” để mở ứng dụng bản đồ</small></div></div></div></section>
+</main>
+<nav class="guest-mobile-actions" aria-label="Thao tác nhanh cho khách">
+  <a href="#menu"><span aria-hidden="true">♢</span><span>Thực đơn</span></a>
+  <a href="#order-card"><span aria-hidden="true">✦</span><span>Gọi món <b id="cart-count" class="cart-count" hidden>0</b></span></a>
+  <a href="#booking"><span aria-hidden="true">▣</span><span>Đặt bàn</span></a>
+  <a href="#checkin"><span aria-hidden="true">✓</span><span>Check-in</span></a>
+</nav>
+<footer class="site-footer"><div class="wrap footer-grid"><a href="#home" class="wordmark"><span class="mark">T<span class="mark-cross">✦</span>D</span><span>TÂN DESIGN <small>BAR & LOUNGE</small></span></a><p>© Tân Design · Hẹn gặp nhau sau hoàng hôn.</p><a href="/pos" id="staff-entry">Đăng nhập nhân viên ↗</a></div></footer>
+</body></html>
