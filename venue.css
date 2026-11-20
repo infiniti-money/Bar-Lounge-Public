@@ -187,3 +187,24 @@ body.lightbox-open{overflow:hidden}
   .gallery-tile .gallery-zoom{top:12px;right:12px}
 }
 @media(prefers-reduced-motion:reduce){.scroll-progress,.lightbox-arrow{transition:none!important}}
+
+
+/* Menu discovery and adjustable cart for touch screens. */
+.menu-search-tools{display:flex;align-items:end;justify-content:space-between;gap:15px 25px;flex-wrap:wrap;margin:16px 0 15px}
+.menu-search-tools label{font-size:11px;font-weight:700;letter-spacing:.13em;color:#f0b0c2;display:flex;flex-direction:column;gap:8px;flex:1 1 300px;max-width:540px}
+.menu-search-tools input{width:100%;font-size:15px;letter-spacing:normal;font-weight:400;color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:10px;min-height:48px;background:rgba(255,255,255,.055);padding:12px 16px;outline-offset:2px}
+.menu-search-tools input::placeholder{color:#af9ea9}
+.menu-search-tools input:focus-visible{border-color:#ff779e;outline:2px solid #e14871}
+.menu-search-tools input:disabled{cursor:not-allowed;opacity:.55}
+.menu-match-count{font-size:12px;color:#d3b3c1;margin:0 0 7px}
+.cart-edit-line{display:grid;grid-template-columns:minmax(100px,1fr) auto auto;align-items:center;gap:10px}
+.cart-product-name{min-width:0;overflow-wrap:anywhere}
+.cart-quantity{display:inline-flex;align-items:center;gap:4px;border:1px solid rgba(255,255,255,.2);border-radius:9px;padding:3px}
+.cart-quantity button{display:grid;place-items:center;width:36px;height:36px;min-height:36px;border:0;border-radius:7px;background:rgba(255,255,255,.11);color:#fff;font-size:21px;line-height:1}
+.cart-quantity button:hover:not(:disabled){background:#a71c3d}
+.cart-quantity button:disabled{opacity:.4;cursor:not-allowed}
+.cart-quantity>span{min-width:21px;text-align:center;font-variant-numeric:tabular-nums}
+.cart-total{font-weight:700;border-top:1px solid rgba(255,255,255,.18);padding-top:12px}
+.cart-clear{background:transparent;color:#ffc0ce;border:0;padding:9px 0;text-decoration:underline;text-underline-offset:3px}
+.booking-time-note{color:#e8bdc9;font-size:12px;line-height:1.7;margin:3px 0 16px}
+@media(max-width:650px){.cart-edit-line{grid-template-columns:minmax(0,1fr) auto}.cart-edit-line strong{grid-column:1/-1;text-align:right}.menu-search-tools label{flex-basis:100%}.menu-match-count{width:100%}}
