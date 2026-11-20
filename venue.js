@@ -221,3 +221,25 @@ async function initialize() {
   } catch { $('#menu-state').textContent = 'Chưa thể kết nối máy chủ thực đơn. Vui lòng thử lại sau hoặc liên hệ Zalo 0867899987.'; disableGuestForms(); }
 }
 initialize();
+
+function initScrollReveal() {
+  if (!('IntersectionObserver' in window) ||
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  const elements = [...document.querySelectorAll('[data-reveal]')];
+  if (!elements.length) return;
+  const observer = new IntersectionObserver((entries, watcher) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        watcher.unobserve(entry.target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
+  document.documentElement.classList.add('scroll-reveal-ready');
+  elements.forEach((el, index) => {
+    el.style.setProperty('--reveal-delay', String((index % 3) * 75) + 'ms');
+    if (el.getBoundingClientRect().top <= window.innerHeight * 0.88) el.classList.add('is-visible');
+    else observer.observe(el);
+  });
+}
+initScrollReveal();
