@@ -1,7 +1,47 @@
+import { foldVietnamese, matchesMenuProduct, localVenueDateTime, validateBookingSlot, validGuestPhone } from './guest-utils.mjs';
 const $ = selector => document.querySelector(selector);
 const formatMoney = amount => new Intl.NumberFormat('vi-VN').format(amount) + ' ₫';
 const cart = new Map();
 const products = new Map();
+let activeMenuCategory = 'Tất cả';
+let cartRestored = false;
+const cartStorageKey = 'tan-design-cart-v2';
+function saveCart() {
+  // Persist IDs and quantities only. Never store guest names, phone numbers or tracking tokens.
+  try { sessionStorage.setItem(cartStorageKey, JSON.stringify([...cart])); } catch { /* storage may be disabled */ }
+}
+function restoreCart() {
+  if (!cartRestored) {
+    cartRestored = true;
+    try {
+      const raw = sessionStorage.getItem(cartStorageKey) || '[]';
+      const entries = raw.length <= 12000 ? JSON.parse(raw) : [];
+      if (Array.isArray(entries)) {
+        for (const entry of entries.slice(0, 30)) {
+          if (!Array.isArray(entry) || entry.length !== 2) continue;
+          const [id, quantity] = entry;
+          if (typeof id === 'string' && products.has(id) && Number.isSafeInteger(quantity) && quantity >= 1 && quantity <= 20) cart.set(id, quantity);
+        }
+      }
+    } catch { /* invalid private browsing storage */ }
+  }
+  for (const id of cart.keys()) if (!products.has(id)) cart.delete(id);
+  renderCart();
+}
+function updateCartQuantity(id, quantity) {
+  if (!products.has(id)) return;
+  if (!Number.isSafeInteger(quantity) || quantity > 20) return;
+  if (quantity > 0 && cart.size >= 30 && !cart.has(id)) {
+    showMessage('order-message', 'Mỗi yêu cầu tối đa 30 món khác nhau.', true);
+    return;
+  }
+  if (quantity <= 0) cart.delete(id);
+  else cart.set(id, quantity);
+  // A changed payload must not reuse an idempotency key from a previous order attempt.
+  delete $('#order-form').dataset.key;
+  renderCart();
+}
+
 const isStaticPages = document.documentElement.dataset.siteHost === 'github-pages';
 const apiOrigin = String(globalThis.TanDesignConfig?.apiOrigin || '').replace(/\/+$/, '');
 function backendUrl(path) {
@@ -66,30 +106,53 @@ function renderCart() {
   const countLabel = $('#cart-count');
   countLabel.textContent = String(count);
   countLabel.hidden = count === 0;
-  if (!cart.size) { el.textContent = 'Chưa có món được chọn.'; return; }
+  if (!cart.size) {
+    el.textContent = 'Chưa có món được chọn.';
+    saveCart();
+    return;
+  }
   let total = 0;
   for (const [id, quantity] of cart) {
     const product = products.get(id);
     if (!product) continue;
     total += product.price * quantity;
     const row = document.createElement('div');
-    row.className = 'cart-line';
+    row.className = 'cart-line cart-edit-line';
     const name = document.createElement('span');
-    name.textContent = product.name + ' × ' + quantity;
+    name.className = 'cart-product-name';
+    name.textContent = product.name;
+    const controls = document.createElement('div');
+    controls.className = 'cart-quantity';
+    const minus = document.createElement('button');
+    minus.type = 'button'; minus.textContent = '−';
+    minus.setAttribute('aria-label', 'Giảm số lượng ' + product.name);
+    minus.addEventListener('click', () => updateCartQuantity(id, quantity - 1));
+    const number = document.createElement('span');
+    number.textContent = String(quantity);
+    number.setAttribute('aria-label', 'Số lượng ' + product.name);
+    const plus = document.createElement('button');
+    plus.type = 'button'; plus.textContent = '+';
+    plus.disabled = quantity >= 20;
+    plus.setAttribute('aria-label', 'Tăng số lượng ' + product.name);
+    plus.addEventListener('click', () => updateCartQuantity(id, quantity + 1));
+    controls.append(minus, number, plus);
     const price = document.createElement('strong');
     price.textContent = formatMoney(product.price * quantity);
-    row.append(name, price);
+    row.append(name, controls, price);
     el.append(row);
   }
   const totalRow = document.createElement('div');
-  totalRow.className = 'cart-line';
+  totalRow.className = 'cart-line cart-total';
   totalRow.textContent = 'Tạm tính (chưa phí/thuế): ' + formatMoney(total);
   el.append(totalRow);
   const clear = document.createElement('button');
   clear.type = 'button'; clear.textContent = 'Xóa giỏ hàng';
-  clear.style.cssText = 'background:transparent;color:#f39bab;border:0;padding:8px 0;text-decoration:underline';
-  clear.addEventListener('click', () => { cart.clear(); renderCart(); });
+  clear.className = 'cart-clear';
+  clear.addEventListener('click', () => {
+    cart.clear(); delete $('#order-form').dataset.key; renderCart();
+  });
   el.append(clear);
+  saveCart();
 }
 function renderProducts(list) {
   const grid = $('#menu-grid');
@@ -104,6 +167,7 @@ function renderProducts(list) {
     products.set(product.id, product);
     const card = document.createElement('article'); card.className = 'menu-item';
     card.dataset.category = String(product.category || 'Khác');
+    card.dataset.productId = String(product.id);
     const category = document.createElement('small'); category.textContent = product.category;
     const title = document.createElement('h3'); title.textContent = product.name;
     const unit = document.createElement('p'); unit.textContent = product.unit || 'Phần';
@@ -111,29 +175,48 @@ function renderProducts(list) {
     const price = document.createElement('b'); price.textContent = formatMoney(product.price);
     const add = document.createElement('button'); add.type = 'button'; add.textContent = '+';
     add.setAttribute('aria-label', 'Thêm ' + product.name + ' vào giỏ');
-    add.addEventListener('click', () => { cart.set(product.id, Math.min((cart.get(product.id) || 0) + 1, 20)); renderCart(); });
+    add.addEventListener('click', () => updateCartQuantity(product.id, Math.min((cart.get(product.id) || 0) + 1, 20)));
     footer.append(price, add); card.append(category, title, unit, footer); grid.append(card);
   }
+  restoreCart();
 }
+function applyMenuFilters() {
+  const query = $('#menu-search').value;
+  let visible = 0;
+  $('#menu-grid').querySelectorAll('.menu-item').forEach(card => {
+    const product = products.get(card.dataset.productId);
+    const show = !!product && matchesMenuProduct(product, { category: activeMenuCategory, query });
+    card.hidden = !show;
+    if (show) visible++;
+  });
+  const feedback = $('#menu-match-count');
+  feedback.textContent = visible
+    ? 'Hiển thị ' + visible + ' / ' + products.size + ' món'
+    : 'Không tìm thấy món phù hợp. Hãy thử từ khóa hoặc nhóm món khác.';
+}
+$('#menu-search').addEventListener('input', applyMenuFilters);
 function renderMenuFilters(list) {
   const holder = $('#menu-filters');
   holder.replaceChildren();
   const categories = ['Tất cả', ...new Set(list.map(item => String(item.category || 'Khác')))];
+  if (!categories.includes(activeMenuCategory)) activeMenuCategory = 'Tất cả';
   holder.hidden = list.length === 0;
+  $('#menu-search').disabled = !list.length;
+  if (!list.length) return;
   for (const category of categories) {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'filter-chip';
     button.textContent = category;
-    button.setAttribute('aria-pressed', String(category === 'Tất cả'));
+    button.setAttribute('aria-pressed', String(category === activeMenuCategory));
     button.addEventListener('click', () => {
+      activeMenuCategory = category;
       holder.querySelectorAll('button').forEach(el => el.setAttribute('aria-pressed', String(el === button)));
-      $('#menu-grid').querySelectorAll('.menu-item').forEach(card => {
-        card.hidden = category !== 'Tất cả' && card.dataset.category !== category;
-      });
+      applyMenuFilters();
     });
     holder.append(button);
   }
+  applyMenuFilters();
 }
 function renderEvents(events) {
   if (!events?.length) return;
@@ -159,6 +242,7 @@ document.querySelectorAll('#site-nav a').forEach(link => link.addEventListener('
 $('#order-form').addEventListener('submit', async event => {
   event.preventDefault();
   if (!cart.size) { showMessage('order-message', 'Vui lòng chọn ít nhất một món.', true); return; }
+  if (cart.size > 30) { showMessage('order-message', 'Tối đa 30 món khác nhau cho một yêu cầu.', true); return; }
   const form = event.currentTarget, button = form.querySelector('[type=submit]');
   button.disabled = true;
   try {
@@ -176,9 +260,10 @@ $('#booking-form').addEventListener('submit', async event => {
   try {
     const data = new FormData(form);
     const dt = String(data.get('startAt'));
-    const timestamp = new Date(dt + ':00+07:00');
-    if (!Number.isFinite(timestamp.getTime())) throw new Error('Ngày giờ không hợp lệ.');
-    const result = await request('/api/public/request', { kind: 'reservation', customerName: String(data.get('customerName')), phone: String(data.get('phone')), startAt: timestamp.toISOString(), guests: Number(data.get('guests')), note: String(data.get('note')), idempotencyKey: form.dataset.key || (form.dataset.key = crypto.randomUUID()) });
+    const timeIso = validateBookingSlot(dt);
+    const phone = String(data.get('phone')).trim();
+    if (!validGuestPhone(phone)) throw new Error('Số điện thoại không hợp lệ. Vui lòng kiểm tra lại.');
+    const result = await request('/api/public/request', { kind: 'reservation', customerName: String(data.get('customerName')), phone, startAt: timeIso, guests: Number(data.get('guests')), note: String(data.get('note')), idempotencyKey: form.dataset.key || (form.dataset.key = crypto.randomUUID()) });
     showMessage('booking-message', 'Đã tiếp nhận yêu cầu ' + result.result.code + '. Vui lòng chờ nhân viên liên hệ xác nhận.');
     form.reset(); delete form.dataset.key; trackSubmission(result);
   } catch (error) { showMessage('booking-message', error.message, true); }
@@ -188,12 +273,21 @@ $('#checkin-form').addEventListener('submit', async event => {
   event.preventDefault(); const form = event.currentTarget, btn = form.querySelector('button'); btn.disabled = true;
   try {
     const data = new FormData(form);
-    const result = await request('/api/public/request', { kind: 'checkin', name: String(data.get('name')), phone: String(data.get('phone')), note: String(data.get('note')), idempotencyKey: form.dataset.key || (form.dataset.key = crypto.randomUUID()) });
+    const phone = String(data.get('phone')).trim();
+    if (!validGuestPhone(phone)) throw new Error('Số điện thoại không hợp lệ. Vui lòng kiểm tra lại.');
+    const result = await request('/api/public/request', { kind: 'checkin', name: String(data.get('name')), phone, note: String(data.get('note')), idempotencyKey: form.dataset.key || (form.dataset.key = crypto.randomUUID()) });
     showMessage('checkin-message', 'Đã ghi nhận check-in ' + result.result.code + '. Nhân viên sẽ đón tiếp bạn.');
     form.reset(); delete form.dataset.key; trackSubmission(result);
   } catch (error) { showMessage('checkin-message', error.message, true); }
   finally { btn.disabled = false; }
 });
+function setBookingTimeLimits() {
+  const input = $('#booking-form').elements.namedItem('startAt');
+  input.min = localVenueDateTime(Date.now() + 15 * 60000);
+  input.max = localVenueDateTime(Date.now() + 90 * 86400000);
+}
+setBookingTimeLimits();
+$('#booking-form').elements.namedItem('startAt').addEventListener('focus', setBookingTimeLimits);
 async function initialize() {
   if (isStaticPages) {
     const staffLink = document.getElementById('staff-entry');
