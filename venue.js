@@ -463,3 +463,35 @@ function initPageNavigation() {
 }
 initGalleryLightbox();
 initPageNavigation();
+
+
+/**
+ * Optional progressive web app for the public GitHub Pages site only.
+ * No caching of API/guest request endpoints, POST bodies, customer PII, or tracking tokens.
+ * When offline, the existing guest status banner disables all request buttons.
+ */
+function initGuestPwa() {
+  if (!isStaticPages || !window.isSecureContext) return;
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register(new URL('./guest-sw.js', import.meta.url), { scope: './' })
+        .catch(() => { /* unsupported environments keep working as a website */ });
+    });
+  }
+  const installButton = $('#install-guest-app');
+  let deferredInstall = null;
+  window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault();
+    deferredInstall = event;
+    installButton.hidden = false;
+  });
+  installButton.addEventListener('click', async () => {
+    if (!deferredInstall) return;
+    const promptEvent = deferredInstall;
+    deferredInstall = null;
+    installButton.hidden = true;
+    try { await promptEvent.prompt(); } catch { /* user may dismiss */ }
+  });
+  window.addEventListener('appinstalled', () => { deferredInstall = null; installButton.hidden = true; });
+}
+initGuestPwa();
