@@ -29,7 +29,15 @@
     <a href="#booking" class="nav-book">Đặt bàn <span aria-hidden="true">↗</span></a>
   </nav>
 </header>
+<div id="guest-service-banner" class="guest-service-banner" role="status" aria-live="polite" hidden>
+  <div class="wrap guest-service-inner">
+    <span class="service-dot" aria-hidden="true"></span>
+    <p id="guest-service-message"></p>
+    <a href="https://zalo.me/0867899987" target="_blank" rel="noopener noreferrer">LIÊN HỆ ZALO ↗</a>
+  </div>
+</div>
 <main id="main">
+  <noscript><div class="guest-noscript wrap" role="alert">Website cần bật JavaScript để kết nối hệ thống đặt bàn, check-in và gọi món. Nếu không sử dụng được, vui lòng <a href="https://zalo.me/0867899987">liên hệ Zalo 0867899987</a>. Gửi biểu mẫu không có nghĩa yêu cầu đã được nhân viên xác nhận.</div></noscript>
   <section class="hero" id="home" aria-labelledby="hero-title">
     <div class="hero-glow"></div>
     <div class="hero-inner wrap">
@@ -92,9 +100,15 @@
     <div class="menu-filters" id="menu-filters" role="group" aria-label="Lọc thực đơn theo nhóm món" hidden></div>
     <div class="menu-grid" id="menu-grid"></div>
     <div class="order-card" id="order-card"><div><p class="eyebrow">ORDER AT YOUR TABLE</p><h3>Gọi món ngay tại bàn</h3><p>Nhập đúng số bàn đang ngồi. Yêu cầu sẽ đến nhân viên phục vụ để xác nhận trước khi gửi pha chế.</p></div>
-      <form id="order-form"><label for="table-name">SỐ BÀN <span aria-hidden="true">*</span></label><input id="table-name" name="tableName" placeholder="Ví dụ: S01, VIP01" maxlength="50" required autocomplete="off">
+      <form id="order-form"><label for="table-name">SỐ BÀN <span aria-hidden="true">*</span></label><input id="table-name" name="tableName" placeholder="Ví dụ: S01, VIP01" maxlength="50" required autocomplete="off" aria-describedby="table-link-note">
+        <div class="table-link-tools">
+          <p id="table-link-note" aria-live="polite">Nhập số bàn đúng theo hướng dẫn của nhân viên. Bạn có thể chia sẻ đường dẫn dành riêng cho bàn này để tạo mã QR.</p>
+          <button type="button" class="table-copy-button" id="copy-table-link"><span aria-hidden="true">▣</span> Sao chép liên kết bàn</button>
+          <p id="table-copy-state" class="table-copy-state" role="status" aria-live="polite"></p>
+          <input type="text" id="table-share-url" class="table-share-url" aria-label="Đường dẫn dành cho bàn để sao chép thủ công" readonly hidden>
+        </div>
         <label for="order-note">GHI CHÚ CHO PHỤC VỤ</label><textarea id="order-note" rows="2" maxlength="300" placeholder="Ít đá, lưu ý dị ứng…"></textarea>
-        <p class="order-tip"><span aria-hidden="true">✦</span> Bàn cần được nhân viên mở trước khi khách gửi món. Yêu cầu phải được phục vụ xác nhận; chưa phải hóa đơn thanh toán.</p><div id="cart-lines" class="cart-lines">Chưa có món được chọn.</div><button class="btn btn-primary" type="submit">GỬI YÊU CẦU GỌI MÓN <span>↗</span></button><p class="form-message" id="order-message" role="status"></p>
+        <p class="order-tip"><span aria-hidden="true">✦</span> Bàn cần được nhân viên mở trước khi khách gửi món. Yêu cầu phải được phục vụ xác nhận; chưa phải hóa đơn thanh toán.</p><div id="cart-lines" class="cart-lines">Chưa có món được chọn.</div><button class="btn btn-primary" type="submit" disabled>GỬI YÊU CẦU GỌI MÓN <span>↗</span></button><p class="form-message" id="order-message" role="status"></p>
       </form>
     </div>
     <aside id="tracking-panel" class="tracking-panel" hidden role="status" aria-live="polite">
@@ -104,9 +118,9 @@
     </aside>
   </section>
   <section class="section section-contrast" id="booking"><div class="wrap booking-layout"><div class="booking-intro" data-reveal="left"><p class="eyebrow">05 / YOUR RESERVATION</p><h2 data-reveal="left">Dành một chỗ<br>cho <em>đêm nay.</em></h2><p>Gửi yêu cầu đặt bàn. Nhân viên sẽ xác nhận tình trạng bàn với bạn qua số điện thoại; gửi biểu mẫu chưa có nghĩa là đặt bàn thành công.</p><div class="booking-line"></div><p><strong>GIỜ MỞ CỬA</strong><br>16:00–23:00 · Hằng ngày</p><p><strong>HỖ TRỢ QUA ZALO</strong><br><a href="https://zalo.me/0867899987" target="_blank" rel="noopener noreferrer">0867899987 ↗</a></p></div>
-    <form id="booking-form" class="form-panel"><h3>Yêu cầu đặt bàn</h3><div class="form-columns"><label>HỌ VÀ TÊN <input name="customerName" required maxlength="120" placeholder="Tên người đặt bàn"></label><label>SỐ ĐIỆN THOẠI <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" placeholder="09…"></label><label>NGÀY VÀ GIỜ <input name="startAt" type="datetime-local" aria-describedby="booking-time-note" required></label><label>SỐ KHÁCH <input name="guests" type="number" min="1" max="50" value="2" required></label></div><p id="booking-time-note" class="booking-time-note">Chọn giờ Việt Nam (UTC+7), từ 16:00–23:00, tối đa 90 ngày tới. Đặt bàn cần nhân viên xác nhận.</p><label>YÊU CẦU KHÁC<textarea name="note" maxlength="500" rows="3" placeholder="Vị trí ngồi mong muốn, dịp đặc biệt…"></textarea></label><button type="submit" class="btn btn-primary">GỬI YÊU CẦU ĐẶT BÀN <span>↗</span></button><p class="form-message" id="booking-message" role="status"></p></form>
+    <form id="booking-form" class="form-panel"><h3>Yêu cầu đặt bàn</h3><div class="form-columns"><label>HỌ VÀ TÊN <input name="customerName" required maxlength="120" placeholder="Tên người đặt bàn"></label><label>SỐ ĐIỆN THOẠI <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" placeholder="09…"></label><label>NGÀY VÀ GIỜ <input name="startAt" type="datetime-local" aria-describedby="booking-time-note" required></label><label>SỐ KHÁCH <input name="guests" type="number" min="1" max="50" value="2" required></label></div><p id="booking-time-note" class="booking-time-note">Chọn giờ Việt Nam (UTC+7), từ 16:00–23:00, tối đa 90 ngày tới. Đặt bàn cần nhân viên xác nhận.</p><label>YÊU CẦU KHÁC<textarea name="note" maxlength="500" rows="3" placeholder="Vị trí ngồi mong muốn, dịp đặc biệt…"></textarea></label><button type="submit" class="btn btn-primary" disabled>GỬI YÊU CẦU ĐẶT BÀN <span>↗</span></button><p class="form-message" id="booking-message" role="status"></p></form>
   </div></section>
-  <section class="section wrap checkin" id="checkin"><div><p class="eyebrow">06 / YOUR MOMENT</p><h2 data-reveal="right">Check-in.<br><em>Lưu dấu cuộc hẹn.</em></h2><p>Đã tới quán? Gửi thông tin check-in để nhân viên đón tiếp. Chúng tôi không tự đăng ảnh hoặc thông tin của bạn lên mạng xã hội.</p></div><form id="checkin-form" class="form-panel"><h3>Thông báo tôi đã đến</h3><label>HỌ VÀ TÊN<input name="name" required maxlength="120" placeholder="Tên của bạn"></label><label>SỐ ĐIỆN THOẠI<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" placeholder="Để nhân viên liên hệ"></label><label>GHI CHÚ<textarea name="note" maxlength="300" rows="2" placeholder="Tên người đặt bàn, khu vực hẹn…"></textarea></label><button class="btn btn-primary" type="submit">CHECK-IN <span>↗</span></button><p class="form-message" id="checkin-message" role="status"></p></form></section>
+  <section class="section wrap checkin" id="checkin"><div><p class="eyebrow">06 / YOUR MOMENT</p><h2 data-reveal="right">Check-in.<br><em>Lưu dấu cuộc hẹn.</em></h2><p>Đã tới quán? Gửi thông tin check-in để nhân viên đón tiếp. Chúng tôi không tự đăng ảnh hoặc thông tin của bạn lên mạng xã hội.</p></div><form id="checkin-form" class="form-panel"><h3>Thông báo tôi đã đến</h3><label>HỌ VÀ TÊN<input name="name" required maxlength="120" placeholder="Tên của bạn"></label><label>SỐ ĐIỆN THOẠI<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="30" placeholder="Để nhân viên liên hệ"></label><label>GHI CHÚ<textarea name="note" maxlength="300" rows="2" placeholder="Tên người đặt bàn, khu vực hẹn…"></textarea></label><button class="btn btn-primary" type="submit" disabled>CHECK-IN <span>↗</span></button><p class="form-message" id="checkin-message" role="status"></p></form></section>
   <section class="section visitor-guide" id="guide" aria-labelledby="guide-heading">
     <div class="wrap">
       <div class="section-heading">

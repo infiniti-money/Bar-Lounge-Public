@@ -1,4 +1,4 @@
-import { foldVietnamese, matchesMenuProduct, localVenueDateTime, validateBookingSlot, validGuestPhone } from './guest-utils.mjs';
+import { foldVietnamese, matchesMenuProduct, localVenueDateTime, validateBookingSlot, validGuestPhone, normalizeTableCode, makeTableLink } from './guest-utils.mjs';
 const $ = selector => document.querySelector(selector);
 const formatMoney = amount => new Intl.NumberFormat('vi-VN').format(amount) + ' ₫';
 const cart = new Map();
@@ -49,11 +49,49 @@ function backendUrl(path) {
   if (!apiOrigin) throw new Error('Hệ thống nhận yêu cầu đang được kết nối. Vui lòng liên hệ Zalo 0867899987.');
   return new URL(path, apiOrigin).href;
 }
-function disableGuestForms() {
+function setGuestFormsEnabled(enabled) {
   for (const id of ['order-form', 'booking-form', 'checkin-form']) {
-    document.getElementById(id).querySelector('button[type=submit]').disabled = true;
+    document.getElementById(id).querySelector('button[type=submit]').disabled = !enabled;
   }
 }
+function disableGuestForms() { setGuestFormsEnabled(false); }
+function showGuestServiceState(state, message) {
+  const banner = $('#guest-service-banner');
+  banner.hidden = false;
+  banner.dataset.state = state;
+  $('#guest-service-message').textContent = message;
+}
+function initTableDeepLink() {
+  const input = $('#table-name');
+  const fromQR = normalizeTableCode(new URL(location.href).searchParams.get('table'));
+  if (fromQR) {
+    input.value = fromQR;
+    $('#table-link-note').textContent = 'Đã điền bàn ' + fromQR + ' từ liên kết hoặc mã QR. Vui lòng đối chiếu số bàn thực tế với nhân viên. Liên kết không tự tạo hoặc xác nhận đơn.';
+  }
+  $('#copy-table-link').addEventListener('click', async () => {
+    const feedback = $('#table-copy-state');
+    const fallback = $('#table-share-url');
+    fallback.hidden = true;
+    try {
+      const link = makeTableLink(location.href, input.value);
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(link);
+      feedback.textContent = 'Đã sao chép liên kết bàn. Có thể dùng liên kết này để tạo mã QR.';
+    } catch {
+      try {
+        const link = makeTableLink(location.href, input.value);
+        fallback.value = link;
+        fallback.hidden = false;
+        fallback.focus();
+        fallback.select();
+        feedback.textContent = 'Không tự sao chép được. Hãy sao chép đường dẫn hiển thị bên dưới.';
+      } catch (error) {
+        feedback.textContent = error.message;
+      }
+    }
+  });
+}
+initTableDeepLink();
 let trackingTimer = null;
 async function refreshTracking(data) {
   try {
@@ -298,8 +336,14 @@ async function initialize() {
     if (!apiOrigin) {
       $('#menu-state').textContent = 'Website giới thiệu đã sẵn sàng. Thực đơn, check-in và gọi món đang chờ kết nối máy chủ của quán. Liên hệ Zalo 0867899987 để được hỗ trợ.';
       disableGuestForms();
+      showGuestServiceState('not-configured', 'Website đang ở chế độ giới thiệu. Gọi món, đặt bàn và check-in trực tuyến chưa kết nối với hệ thống quán.');
       return;
     }
+  }
+  if (!navigator.onLine) {
+    showGuestServiceState('offline', 'Thiết bị đang mất kết nối Internet. Không thể gửi yêu cầu đến nhân viên.');
+    disableGuestForms();
+    return;
   }
   try {
     const result = await request('/api/public/menu');
@@ -311,9 +355,22 @@ async function initialize() {
       notice.hidden = false;
       notice.textContent = 'Hệ thống đang được quán thiết lập. Vui lòng liên hệ Zalo 0867899987 để đặt bàn hoặc gọi món.';
       disableGuestForms();
+      showGuestServiceState('setup', 'Máy chủ của quán chưa hoàn tất thiết lập. Vui lòng liên hệ trực tiếp để được hỗ trợ.');
+    } else {
+      setGuestFormsEnabled(true);
+      showGuestServiceState('ready', 'Đã kết nối hệ thống quán. Các yêu cầu gửi từ website vẫn cần nhân viên duyệt.');
     }
-  } catch { $('#menu-state').textContent = 'Chưa thể kết nối máy chủ thực đơn. Vui lòng thử lại sau hoặc liên hệ Zalo 0867899987.'; disableGuestForms(); }
+  } catch {
+    $('#menu-state').textContent = 'Chưa thể kết nối máy chủ thực đơn. Vui lòng thử lại sau hoặc liên hệ Zalo 0867899987.';
+    disableGuestForms();
+    showGuestServiceState('unavailable', 'Hệ thống nhận yêu cầu đang tạm gián đoạn. Website chưa thể xác nhận check-in, đặt bàn hoặc gọi món.');
+  }
 }
+window.addEventListener('offline', () => {
+  disableGuestForms();
+  showGuestServiceState('offline', 'Thiết bị đang mất kết nối Internet. Không thể gửi yêu cầu đến nhân viên.');
+});
+window.addEventListener('online', initialize);
 initialize();
 
 function initScrollReveal() {
