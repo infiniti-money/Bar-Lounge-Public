@@ -32,3 +32,21 @@ export function validGuestPhone(value) {
   const digits = phone.replace(/\D/g, '');
   return digits.length >= 8 && digits.length <= 15;
 }
+
+export function normalizeTableCode(raw) {
+  if (typeof raw !== 'string') return null;
+  const code = raw.normalize('NFC').trim();
+  if (code.length === 0 || code.length > 50 || !/^[\p{L}\p{N}][\p{L}\p{M}\p{N} ._-]*$/u.test(code)) return null;
+  return code;
+}
+export function makeTableLink(siteHref, rawCode) {
+  const table = normalizeTableCode(rawCode);
+  if (!table) throw new Error('Số bàn không hợp lệ. Vui lòng nhập lại theo hướng dẫn nhân viên.');
+  const url = new URL(siteHref);
+  if (!['https:', 'http:'].includes(url.protocol)) throw new Error('Đường dẫn website không hợp lệ.');
+  // Do not propagate tracking parameters or unknown tokens into printed/shared table QR links.
+  url.search = '';
+  url.searchParams.set('table', table);
+  url.hash = 'order-card';
+  return url.href;
+}
