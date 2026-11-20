@@ -243,3 +243,72 @@ function initScrollReveal() {
   });
 }
 initScrollReveal();
+
+
+function initGalleryLightbox() {
+  const dialog = document.getElementById('gallery-lightbox');
+  if (!dialog || typeof dialog.showModal !== 'function') return;
+  const images = [...document.querySelectorAll('.bar-gallery .gallery-tile img')];
+  const zoomButtons = [...document.querySelectorAll('.gallery-zoom')];
+  if (!images.length) return;
+  let current = 0;
+  let opener = null;
+  const display = next => {
+    current = (next + images.length) % images.length;
+    const image = images[current];
+    document.getElementById('lightbox-image').src = image.currentSrc || image.src;
+    document.getElementById('lightbox-image').alt = image.alt;
+    document.getElementById('lightbox-title').textContent = image.closest('figure')?.querySelector('figcaption strong')?.textContent || 'Ảnh minh họa bar & lounge';
+    document.getElementById('lightbox-caption').textContent = 'Ảnh minh họa · Không phải ảnh chụp tại Tân Design';
+    document.getElementById('lightbox-counter').textContent = (current + 1) + ' / ' + images.length;
+  };
+  zoomButtons.forEach((button, index) => button.addEventListener('click', () => {
+    opener = button;
+    display(index);
+    dialog.showModal();
+    document.body.classList.add('lightbox-open');
+    document.getElementById('lightbox-close').focus();
+  }));
+  document.getElementById('lightbox-close').addEventListener('click', () => dialog.close());
+  document.getElementById('lightbox-prev').addEventListener('click', () => display(current - 1));
+  document.getElementById('lightbox-next').addEventListener('click', () => display(current + 1));
+  dialog.addEventListener('keydown', event => {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.preventDefault();
+      display(current + (event.key === 'ArrowRight' ? 1 : -1));
+    }
+  });
+  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => {
+    document.body.classList.remove('lightbox-open');
+    document.getElementById('lightbox-image').removeAttribute('src');
+    opener?.focus();
+    opener = null;
+  });
+}
+function initPageNavigation() {
+  const progress = document.getElementById('scroll-progress');
+  const topButton = document.getElementById('back-to-top');
+  if (!progress || !topButton) return;
+  let pending = false;
+  const update = () => {
+    const remaining = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = remaining > 0 ? Math.min(1, Math.max(0, window.scrollY / remaining)) : 0;
+    progress.style.transform = 'scaleX(' + ratio + ')';
+    topButton.hidden = window.scrollY < 650;
+    pending = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (pending) return;
+    pending = true;
+    window.requestAnimationFrame(update);
+  }, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  topButton.addEventListener('click', () => {
+    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduced ? 'instant' : 'smooth' });
+  });
+  update();
+}
+initGalleryLightbox();
+initPageNavigation();
