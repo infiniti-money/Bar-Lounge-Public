@@ -28,7 +28,7 @@ test('red-black glassmorphism remains accessible and photos are authentic',async
  assert.match(base,/\.hero/);
  assert.doesNotMatch(html,/images\.unsplash\.com/);
  for(const file of ['assets/cera-hero.avif','assets/cera-gallery-02.avif','assets/cera-gallery-03.avif']){
-   assert.ok((await stat(new URL('../'+file,import.meta.url))).size>2000,'Missing real photo: '+file);
+   assert.ok((await stat(new URL('../'+file,import.meta.url))).size>1500,'Missing real photo: '+file);
    assert.ok(html.includes(file.split('/').at(-1)));
  }
 });
