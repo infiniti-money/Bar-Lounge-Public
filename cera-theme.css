@@ -1,0 +1,55 @@
+/* Cera Bar & Lounge — shared visual language across guest web and PWA.
+   Applies on top of venue.css without altering booking/order behavior. */
+:root{
+  --bg:#0c090a;--bg2:#160e10;--card:#211315;--edge:#52352c;
+  --red:#bc3926;--red2:#7c2119;--ink:#fff4e7;--muted:#c5b1a5;--gold:#e8b86d;
+  --cera-gold:#e8b86d;--cera-gold-soft:#f6d79b;--cera-burgundy:#541719;
+}
+body{background:radial-gradient(circle at 92% 8%,rgba(117,32,20,.18),transparent 38%),#0c090a;color:var(--ink);}
+.site-header{background:rgba(14,8,8,.95);border-bottom:1px solid rgba(232,184,109,.22);box-shadow:0 6px 30px rgba(0,0,0,.2);}
+.wordmark{font-family:Georgia,'Noto Serif',serif;font-size:21px;letter-spacing:.18em;color:#f1c783;text-transform:uppercase}
+.wordmark .mark{font-size:25px;letter-spacing:0;padding:0;color:#f4ca80;border-color:rgba(232,184,109,.7);background:linear-gradient(145deg,rgba(122,46,27,.5),rgba(14,8,8,.35));box-shadow:0 0 18px rgba(232,184,109,.12)}
+.wordmark .mark-cross{display:none}
+.wordmark small{font:600 9px/1.4 'Be Vietnam Pro',sans-serif;letter-spacing:.32em;color:#e0ba87}
+.site-nav a:hover,.text-link:hover{color:#f7d79b}
+.site-nav .nav-book,.btn-primary{border-color:#e7ae5d!important;background:linear-gradient(120deg,#ad621f 0%,#f1c276 48%,#a9541b 100%)!important;color:#170d09!important;box-shadow:0 7px 23px rgba(224,142,48,.25),inset 0 1px 0 rgba(255,255,255,.3)!important}
+.site-nav .nav-book:hover,.btn-primary:hover{filter:brightness(1.11);color:#140a08}
+.btn-ghost{border-color:rgba(232,184,109,.53)!important}
+.btn-ghost:hover{border-color:#f3ce95!important;color:#f6d494!important}
+.hero{background:linear-gradient(120deg,#0d0809 0%,#2e0d0c 55%,#110909 100%)}
+.hero::after{content:'';position:absolute;z-index:0;inset:auto -10% 0;pointer-events:none;height:180px;background:radial-gradient(ellipse at 70% 110%,rgba(212,49,23,.32),transparent 65%)}
+.hero-copy .eyebrow,.eyebrow{color:#e9bc78}
+.hero-copy h1,.section h2,.section-heading h2,.booking-intro h2{font-family:'Noto Serif',Georgia,serif;letter-spacing:-.035em}
+.hero-copy h1 em,.section h2 em,.section-heading h2 em,.booking-intro h2 em{color:#ecc487}
+.hero-image-panel{border:1px solid rgba(239,188,119,.35);border-radius:22px;overflow:hidden;box-shadow:0 12px 56px rgba(0,0,0,.5),0 0 45px rgba(174,41,19,.16)}
+.hero-image-panel img{width:100%;height:100%;min-height:410px;object-fit:cover;object-position:center;filter:saturate(1.14) contrast(1.04)}
+.hero-image-panel figcaption{background:linear-gradient(0deg,rgba(9,5,5,.95),rgba(9,5,5,.12));color:#f8dec2}
+.hero-meta b{color:#eac38c}
+.gallery-section,.section-contrast{background:linear-gradient(160deg,#180d0e,#110b0b)}
+.gallery-tile{border-radius:18px;overflow:hidden;border:1px solid rgba(223,166,99,.25);box-shadow:0 10px 38px rgba(0,0,0,.26)}
+.gallery-tile img{filter:saturate(1.08) contrast(1.06)}
+.gallery-tile figcaption{background:linear-gradient(0deg,rgba(7,5,5,.92),transparent);color:#f4e4d4}
+.gallery-disclaimer{color:#d5b69c}
+.event-card,.form-panel,.location-panel,.visitor-step,.faq-items details,.menu-card{background:linear-gradient(140deg,rgba(54,27,23,.7),rgba(16,11,12,.95));border-color:rgba(218,162,96,.27)}
+input:focus,select:focus,textarea:focus{outline-color:#e8b86d}
+::selection{background:#8c361e;color:#fff4e7}
+.contact-hours{color:#e5c5a1}
+.location-panel{position:relative;overflow:hidden}
+.location-panel::before{content:'';position:absolute;inset:auto -15% -45% 30%;height:190px;background:radial-gradient(ellipse,rgba(212,71,29,.23),transparent 70%);pointer-events:none}
+.location-panel strong{color:#f4d093;font-family:Georgia,serif;letter-spacing:.09em}
+.cera-location-short{display:block;color:#f0ca91;font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+.cera-address{display:block;max-width:700px;line-height:1.65;color:#f7eadb}
+.cera-map-link{display:inline-flex;gap:9px;align-items:center;color:#f4ca86;font-weight:700;text-decoration:underline;text-decoration-color:rgba(238,181,100,.5);text-underline-offset:5px}
+.cera-map-link:hover{color:#fff0c9}
+.cera-photo-credit{color:#dfc5ab!important;font-style:normal}
+.cera-photo-credit a{color:inherit;text-decoration:underline}
+.site-footer{border-top:1px solid rgba(232,184,109,.2);background:#10090b}
+.mobile-bottom-nav{background:rgba(15,10,10,.97);border-color:rgba(232,184,109,.3)}
+@media(max-width:760px){
+ .wordmark{font-size:17px;letter-spacing:.15em}
+ .wordmark .mark{width:42px;height:42px;font-size:22px}
+ .hero-image-panel img{min-height:300px;max-height:510px}
+ .hero-copy h1{font-size:clamp(2.65rem,11vw,4.5rem);line-height:1.17}
+ .hero-meta{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important}}

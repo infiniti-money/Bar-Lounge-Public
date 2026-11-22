@@ -1,15 +1,15 @@
 {
   "id": "./",
-  "name": "Tân Design Bar & Lounge",
-  "short_name": "Tân Design",
-  "description": "Không gian bar và lounge, thông tin quán, thực đơn và liên hệ",
+  "name": "Cera Bar & Lounge",
+  "short_name": "CERA",
+  "description": "Không gian thực tế, sự kiện, thực đơn và đặt bàn Cera Bar & Lounge · Ecopark",
   "lang": "vi",
   "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0A0A0C",
-  "theme_color": "#E11D48",
+  "background_color": "#0b080a",
+  "theme_color": "#e8b86d",
   "icons": [
     {
       "src": "./icon.svg",

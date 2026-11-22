@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" rx="42" fill="#0A0A0C"/><path d="M57 43h78l-8 38q-7 27-31 27T65 81zm39 65v40m-28 0h56" fill="none" stroke="#E11D48" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="Cera Bar and Lounge">
+  <defs><radialGradient id="g" cx="75%" cy="18%" r="120%"><stop stop-color="#602117"/><stop offset=".65" stop-color="#170b0e"/><stop offset="1" stop-color="#0b0809"/></radialGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0ca"/><stop offset=".5" stop-color="#e6b26b"/><stop offset="1" stop-color="#a96436"/></linearGradient></defs>
+  <rect width="192" height="192" rx="40" fill="url(#g)"/>
+  <rect x="8" y="8" width="176" height="176" rx="33" fill="none" stroke="#bb8249" stroke-opacity=".65" stroke-width="2"/>
+  <path d="M137 50c-16-10-31-13-44-11-31 4-47 28-47 57s16 53 47 57c13 2 28-1 44-11" fill="none" stroke="url(#gold)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M69 163h54" stroke="#cf9f65" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+</svg>
