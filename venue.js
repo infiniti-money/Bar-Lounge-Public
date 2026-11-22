@@ -5,7 +5,7 @@ const cart = new Map();
 const products = new Map();
 let activeMenuCategory = 'Tất cả';
 let cartRestored = false;
-const cartStorageKey = 'tan-design-cart-v2';
+const cartStorageKey = 'cera-cart-v1';
 function saveCart() {
   // Persist IDs and quantities only. Never store guest names, phone numbers or tracking tokens.
   try { sessionStorage.setItem(cartStorageKey, JSON.stringify([...cart])); } catch { /* storage may be disabled */ }
@@ -46,7 +46,7 @@ const isStaticPages = document.documentElement.dataset.siteHost === 'github-page
 const apiOrigin = String(globalThis.TanDesignConfig?.apiOrigin || '').replace(/\/+$/, '');
 function backendUrl(path) {
   if (!isStaticPages) return path;
-  if (!apiOrigin) throw new Error('Hệ thống nhận yêu cầu đang được kết nối. Vui lòng liên hệ Zalo 0867899987.');
+  if (!apiOrigin) throw new Error('Hệ thống nhận yêu cầu đang được kết nối. Vui lòng xem địa chỉ quán trên Google Maps.');
   return new URL(path, apiOrigin).href;
 }
 function setGuestFormsEnabled(enabled) {
@@ -334,7 +334,7 @@ async function initialize() {
       else staffLink.hidden = true;
     }
     if (!apiOrigin) {
-      $('#menu-state').textContent = 'Website giới thiệu đã sẵn sàng. Thực đơn, check-in và gọi món đang chờ kết nối máy chủ của quán. Liên hệ Zalo 0867899987 để được hỗ trợ.';
+      $('#menu-state').textContent = 'Website giới thiệu đã sẵn sàng. Thực đơn, check-in và gọi món đang chờ kết nối máy chủ của quán. Xem địa chỉ Cera Bar & Lounge tại Swanlake Ecopark trên Google Maps.';
       disableGuestForms();
       showGuestServiceState('not-configured', 'Website đang ở chế độ giới thiệu. Gọi món, đặt bàn và check-in trực tuyến chưa kết nối với hệ thống quán.');
       return;
@@ -353,7 +353,7 @@ async function initialize() {
     if (result.setupRequired) {
       const notice = $('#menu-state');
       notice.hidden = false;
-      notice.textContent = 'Hệ thống đang được quán thiết lập. Vui lòng liên hệ Zalo 0867899987 để đặt bàn hoặc gọi món.';
+      notice.textContent = 'Hệ thống đang được quán thiết lập. Vui lòng đến quán hoặc kiểm tra bản đồ Cera Bar & Lounge để được hỗ trợ.';
       disableGuestForms();
       showGuestServiceState('setup', 'Máy chủ của quán chưa hoàn tất thiết lập. Vui lòng liên hệ trực tiếp để được hỗ trợ.');
     } else {
@@ -361,7 +361,7 @@ async function initialize() {
       showGuestServiceState('ready', 'Đã kết nối hệ thống quán. Các yêu cầu gửi từ website vẫn cần nhân viên duyệt.');
     }
   } catch {
-    $('#menu-state').textContent = 'Chưa thể kết nối máy chủ thực đơn. Vui lòng thử lại sau hoặc liên hệ Zalo 0867899987.';
+    $('#menu-state').textContent = 'Chưa thể kết nối máy chủ thực đơn. Vui lòng thử lại sau hoặc kiểm tra địa chỉ quán trên Google Maps.';
     disableGuestForms();
     showGuestServiceState('unavailable', 'Hệ thống nhận yêu cầu đang tạm gián đoạn. Website chưa thể xác nhận check-in, đặt bàn hoặc gọi món.');
   }
