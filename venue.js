@@ -409,8 +409,8 @@ function initGalleryLightbox() {
     const image = images[current];
     document.getElementById('lightbox-image').src = image.currentSrc || image.src;
     document.getElementById('lightbox-image').alt = image.alt;
-    document.getElementById('lightbox-title').textContent = image.closest('figure')?.querySelector('figcaption strong')?.textContent || 'Ảnh không gian thực tế Cera Bar & Lounge';
-    document.getElementById('lightbox-caption').textContent = 'Ảnh chụp thực tế · Cera Bar & Lounge';
+    document.getElementById('lightbox-title').textContent = image.closest('figure')?.querySelector('figcaption strong')?.textContent || 'Ảnh không gian thực tế Cera Day & Night';
+    document.getElementById('lightbox-caption').textContent = 'Ảnh chụp thực tế · Cera Day & Night';
     document.getElementById('lightbox-counter').textContent = (current + 1) + ' / ' + images.length;
   };
   zoomButtons.forEach((button, index) => button.addEventListener('click', () => {
