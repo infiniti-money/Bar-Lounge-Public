@@ -1,15 +1,15 @@
 {
   "id": "./",
-  "name": "Cera Bar & Lounge",
+  "name": "Cera Day & Night",
   "short_name": "CERA",
-  "description": "Không gian thực tế, sự kiện, thực đơn và đặt bàn Cera Bar & Lounge · Ecopark",
+  "description": "Cera Day & Night · ảnh thực tế, menu, sự kiện, thông tin đặt bàn và vị trí mới",
   "lang": "vi",
   "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b080a",
-  "theme_color": "#e8b86d",
+  "background_color": "#09070a",
+  "theme_color": "#e83259",
   "icons": [
     {
       "src": "./icon.svg",

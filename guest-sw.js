@@ -1,10 +1,10 @@
 /**
- * Offline static shell for Cera Bar & Lounge public GitHub Pages only.
+ * Offline static shell for Cera Day & Night public GitHub Pages only.
  * Does NOT cache API, requests, order data, staff pages or third-party assets.
  * Paths derive from this registration's scope: works on /Bar-Lounge-Public/ and custom domains.
  */
-const GUEST_CACHE = 'cera-guest-shell-v2';
-const CACHE_PREFIX = 'cera-guest-shell-';
+const GUEST_CACHE = 'cera-day-night-shell-v3';
+const CACHE_PREFIX = 'cera-day-night-shell-';
 const SITE_SCOPE = new URL(self.registration.scope);
 const FILES = ['index.html', 'venue.css', 'cera-theme.css', 'venue.js', 'guest-utils.mjs', 'config.js', 'icon.svg', 'guest.webmanifest', 'assets/cera-hero.avif', 'assets/cera-gallery-02.avif', 'assets/cera-gallery-03.avif'];
 const STATIC_URLS = FILES.map(name => new URL(name, SITE_SCOPE));
