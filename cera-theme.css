@@ -1,55 +1,121 @@
-/* Cera Bar & Lounge — shared visual language across guest web and PWA.
-   Applies on top of venue.css without altering booking/order behavior. */
+/* CERA DAY & NIGHT — unified ruby-black frosted-glass design system.
+ * Guest website and installable guest PWA. Real venue photos are unchanged.
+ */
 :root{
-  --bg:#0c090a;--bg2:#160e10;--card:#211315;--edge:#52352c;
-  --red:#bc3926;--red2:#7c2119;--ink:#fff4e7;--muted:#c5b1a5;--gold:#e8b86d;
-  --cera-gold:#e8b86d;--cera-gold-soft:#f6d79b;--cera-burgundy:#541719;
+  color-scheme:dark;
+  --bg:#070609;--bg2:#11080d;--card:rgba(29,12,19,.76);
+  --edge:rgba(250,95,126,.28);
+  --red:#ee3658;--red2:#a81337;--ink:#fff4f6;--muted:#d6b8c3;
+  --gold:#f79bac;
+  --cera-red:#f04465;--cera-deep-red:#6b0c24;
+  --cera-black:#070609;--cera-frost:rgba(31,13,20,.7);
+  --cera-glass-stroke:rgba(255,134,160,.29);
 }
-body{background:radial-gradient(circle at 92% 8%,rgba(117,32,20,.18),transparent 38%),#0c090a;color:var(--ink);}
-.site-header{background:rgba(14,8,8,.95);border-bottom:1px solid rgba(232,184,109,.22);box-shadow:0 6px 30px rgba(0,0,0,.2);}
-.wordmark{font-family:Georgia,'Noto Serif',serif;font-size:21px;letter-spacing:.18em;color:#f1c783;text-transform:uppercase}
-.wordmark .mark{font-size:25px;letter-spacing:0;padding:0;color:#f4ca80;border-color:rgba(232,184,109,.7);background:linear-gradient(145deg,rgba(122,46,27,.5),rgba(14,8,8,.35));box-shadow:0 0 18px rgba(232,184,109,.12)}
+html{scroll-behavior:smooth}
+body{
+  color:var(--ink);
+  background:radial-gradient(ellipse at 87% 8%,rgba(168,20,55,.26),transparent 37%),
+    radial-gradient(ellipse at 5% 68%,rgba(115,12,37,.23),transparent 45%),#070609;
+}
+.site-header{
+  background:rgba(10,6,11,.78)!important;
+  border-bottom:1px solid rgba(239,74,105,.35)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(150%);
+  backdrop-filter:blur(24px) saturate(150%);
+  box-shadow:0 8px 40px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.wordmark{font-family:'Noto Serif',Georgia,serif;font-weight:600;letter-spacing:.075em;color:#fff4f5}
+.wordmark .mark{
+  border:1px solid rgba(255,140,162,.75);color:#fff6f8;
+  background:linear-gradient(145deg,rgba(234,42,84,.43),rgba(19,7,13,.83));
+  box-shadow:0 0 22px rgba(222,34,68,.3),inset 0 1px 0 rgba(255,255,255,.18);
+  font-size:24px;letter-spacing:0;padding:0;
+}
 .wordmark .mark-cross{display:none}
-.wordmark small{font:600 9px/1.4 'Be Vietnam Pro',sans-serif;letter-spacing:.32em;color:#e0ba87}
-.site-nav a:hover,.text-link:hover{color:#f7d79b}
-.site-nav .nav-book,.btn-primary{border-color:#e7ae5d!important;background:linear-gradient(120deg,#ad621f 0%,#f1c276 48%,#a9541b 100%)!important;color:#170d09!important;box-shadow:0 7px 23px rgba(224,142,48,.25),inset 0 1px 0 rgba(255,255,255,.3)!important}
-.site-nav .nav-book:hover,.btn-primary:hover{filter:brightness(1.11);color:#140a08}
-.btn-ghost{border-color:rgba(232,184,109,.53)!important}
-.btn-ghost:hover{border-color:#f3ce95!important;color:#f6d494!important}
-.hero{background:linear-gradient(120deg,#0d0809 0%,#2e0d0c 55%,#110909 100%)}
-.hero::after{content:'';position:absolute;z-index:0;inset:auto -10% 0;pointer-events:none;height:180px;background:radial-gradient(ellipse at 70% 110%,rgba(212,49,23,.32),transparent 65%)}
-.hero-copy .eyebrow,.eyebrow{color:#e9bc78}
-.hero-copy h1,.section h2,.section-heading h2,.booking-intro h2{font-family:'Noto Serif',Georgia,serif;letter-spacing:-.035em}
-.hero-copy h1 em,.section h2 em,.section-heading h2 em,.booking-intro h2 em{color:#ecc487}
-.hero-image-panel{border:1px solid rgba(239,188,119,.35);border-radius:22px;overflow:hidden;box-shadow:0 12px 56px rgba(0,0,0,.5),0 0 45px rgba(174,41,19,.16)}
-.hero-image-panel img{width:100%;height:100%;min-height:410px;object-fit:cover;object-position:center;filter:saturate(1.14) contrast(1.04)}
-.hero-image-panel figcaption{background:linear-gradient(0deg,rgba(9,5,5,.95),rgba(9,5,5,.12));color:#f8dec2}
-.hero-meta b{color:#eac38c}
-.gallery-section,.section-contrast{background:linear-gradient(160deg,#180d0e,#110b0b)}
-.gallery-tile{border-radius:18px;overflow:hidden;border:1px solid rgba(223,166,99,.25);box-shadow:0 10px 38px rgba(0,0,0,.26)}
-.gallery-tile img{filter:saturate(1.08) contrast(1.06)}
-.gallery-tile figcaption{background:linear-gradient(0deg,rgba(7,5,5,.92),transparent);color:#f4e4d4}
-.gallery-disclaimer{color:#d5b69c}
-.event-card,.form-panel,.location-panel,.visitor-step,.faq-items details,.menu-card{background:linear-gradient(140deg,rgba(54,27,23,.7),rgba(16,11,12,.95));border-color:rgba(218,162,96,.27)}
-input:focus,select:focus,textarea:focus{outline-color:#e8b86d}
-::selection{background:#8c361e;color:#fff4e7}
-.contact-hours{color:#e5c5a1}
-.location-panel{position:relative;overflow:hidden}
-.location-panel::before{content:'';position:absolute;inset:auto -15% -45% 30%;height:190px;background:radial-gradient(ellipse,rgba(212,71,29,.23),transparent 70%);pointer-events:none}
-.location-panel strong{color:#f4d093;font-family:Georgia,serif;letter-spacing:.09em}
-.cera-location-short{display:block;color:#f0ca91;font-size:11px;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
-.cera-address{display:block;max-width:700px;line-height:1.65;color:#f7eadb}
-.cera-map-link{display:inline-flex;gap:9px;align-items:center;color:#f4ca86;font-weight:700;text-decoration:underline;text-decoration-color:rgba(238,181,100,.5);text-underline-offset:5px}
-.cera-map-link:hover{color:#fff0c9}
-.cera-photo-credit{color:#dfc5ab!important;font-style:normal}
-.cera-photo-credit a{color:inherit;text-decoration:underline}
-.site-footer{border-top:1px solid rgba(232,184,109,.2);background:#10090b}
-.mobile-bottom-nav{background:rgba(15,10,10,.97);border-color:rgba(232,184,109,.3)}
-@media(max-width:760px){
- .wordmark{font-size:17px;letter-spacing:.15em}
- .wordmark .mark{width:42px;height:42px;font-size:22px}
- .hero-image-panel img{min-height:300px;max-height:510px}
- .hero-copy h1{font-size:clamp(2.65rem,11vw,4.5rem);line-height:1.17}
- .hero-meta{flex-wrap:wrap}
+.wordmark small{font:600 10px/1.35 'Be Vietnam Pro',sans-serif;letter-spacing:.22em;color:#f3a9bb}
+.site-nav a:hover,.text-link:hover{color:#ffc6d3}
+.site-nav .nav-book,.btn-primary{
+  background:linear-gradient(135deg,#a90d34,#ef3a61 52%,#be163e)!important;
+  border:1px solid rgba(255,154,175,.7)!important;color:#fff!important;
+  box-shadow:0 12px 30px rgba(185,22,59,.31),inset 0 1px 0 rgba(255,255,255,.21)!important;
+  border-radius:12px!important;text-shadow:0 1px 2px rgba(75,4,22,.35);
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important}}
+.site-nav .nav-book:hover,.btn-primary:hover{filter:brightness(1.14);transform:translateY(-1px)}
+.btn-ghost{
+  color:#ffedf1!important;background:rgba(25,13,20,.5)!important;
+  border:1px solid rgba(252,136,159,.38)!important;
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-radius:12px!important;
+}
+.btn-ghost:hover{background:rgba(134,24,54,.38)!important;border-color:#f58ca4!important}
+.hero{
+  background:radial-gradient(ellipse at 80% 40%,rgba(145,13,46,.43),transparent 52%),
+    linear-gradient(120deg,#080609,#200910 58%,#09070a)!important;
+}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(125deg,transparent 65%,rgba(243,57,100,.07));
+}
+.hero::after{content:'';position:absolute;inset:auto -10% 0;height:180px;pointer-events:none;
+  background:radial-gradient(ellipse at 65% 100%,rgba(229,25,66,.24),transparent 64%);
+}
+.hero-copy .eyebrow,.eyebrow{color:#f896ac!important}
+.hero-copy h1,.section h2,.section-heading h2,.booking-intro h2{
+  font-family:'Noto Serif',Georgia,serif;letter-spacing:-.045em;
+}
+.hero h1 em,.hero-copy h1 em,.section h2 em,.section-heading h2 em,.booking-intro h2 em{color:#ff819a!important}
+.hero-lead{color:#ead3dd}
+.hero-meta b{color:#ffafc0}
+.hero-image-panel{
+  background:rgba(27,11,16,.4);border:1px solid rgba(250,126,150,.41)!important;
+  border-radius:22px;overflow:hidden;
+  box-shadow:0 22px 72px rgba(0,0,0,.53),0 0 45px rgba(214,31,69,.19),
+             inset 0 1px 0 rgba(255,255,255,.13)!important;
+}
+.hero-image-panel img{width:100%;height:100%;min-height:410px;object-fit:cover;object-position:center;filter:saturate(1.08) contrast(1.07)}
+.hero-image-panel figcaption{color:#ffedf1;background:linear-gradient(0deg,rgba(12,5,10,.95),rgba(14,5,10,.05))}
+.gallery-section,.section-contrast,.booking-section{
+  background:linear-gradient(165deg,rgba(22,8,14,.9),rgba(7,6,9,.9))!important;
+}
+.gallery-tile{
+  border:1px solid rgba(254,126,150,.31);border-radius:18px;overflow:hidden;
+  box-shadow:0 15px 45px rgba(0,0,0,.36),0 0 30px rgba(176,20,48,.09);
+}
+.gallery-tile img{filter:saturate(1.11) contrast(1.08)}
+.gallery-tile figcaption{background:linear-gradient(0deg,rgba(8,4,8,.96),transparent);color:#ffedf1}
+.gallery-disclaimer,.cera-photo-credit{color:#d3abb8!important}
+.event-card,.form-panel,.location-panel,.visitor-step,.faq-items details,.menu-card,
+.booking-card,.contact-card,.menu-preview-card{
+  background:linear-gradient(145deg,rgba(55,18,32,.70),rgba(14,9,14,.82))!important;
+  border:1px solid var(--cera-glass-stroke)!important;border-radius:17px!important;
+  -webkit-backdrop-filter:blur(18px) saturate(135%);
+  backdrop-filter:blur(18px) saturate(135%);
+  box-shadow:0 15px 42px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.07);
+}
+input,select,textarea{
+  background:rgba(15,10,14,.78)!important;color:#fff4f5!important;
+  border:1px solid rgba(237,115,144,.29)!important;border-radius:10px!important;
+}
+input:focus,select:focus,textarea:focus{outline-color:#ff7b99!important;border-color:#fb7997!important}
+.location-panel strong{color:#ffb4c7!important}
+.cera-location-short{display:block;color:#f6a2b4;text-transform:uppercase;letter-spacing:.13em}
+.cera-address{display:block;line-height:1.7;color:#ffe5ec}
+.cera-map-link{display:inline-flex;align-items:center;gap:7px;color:#ffb9c9!important;
+  text-decoration:underline;text-underline-offset:5px}
+.cera-map-link:hover{color:#fff!important}
+.site-footer{background:#0d070c!important;border-top:1px solid rgba(246,115,143,.26)!important}
+.mobile-bottom-nav{background:rgba(12,7,13,.88)!important;border-color:rgba(243,87,125,.35)!important;
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px)}
+::selection{background:#b31540;color:white}
+:focus-visible{outline:2px solid #ff9eb7!important;outline-offset:3px}
+@media(max-width:760px){
+  .wordmark{font-size:16px;letter-spacing:.09em}
+  .wordmark .mark{font-size:22px;width:43px;height:43px}
+  .hero-image-panel img{min-height:290px;max-height:515px}
+  .hero-copy h1{font-size:clamp(2.65rem,11vw,4.5rem)}
+}
+@media(prefers-reduced-transparency:reduce){
+  .site-header,.event-card,.form-panel,.location-panel,.visitor-step,.menu-card{background:#21101a!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
