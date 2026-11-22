@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="Cera Bar and Lounge">
-  <defs><radialGradient id="g" cx="75%" cy="18%" r="120%"><stop stop-color="#602117"/><stop offset=".65" stop-color="#170b0e"/><stop offset="1" stop-color="#0b0809"/></radialGradient>
-  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0ca"/><stop offset=".5" stop-color="#e6b26b"/><stop offset="1" stop-color="#a96436"/></linearGradient></defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="Cera Day and Night">
+  <defs><radialGradient id="g" cx="75%" cy="18%" r="120%"><stop stop-color="#6e0a29"/><stop offset=".65" stop-color="#1a0911"/><stop offset="1" stop-color="#080608"/></radialGradient>
+  <linearGradient id="ruby" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd6df"/><stop offset=".5" stop-color="#ed456c"/><stop offset="1" stop-color="#9d103a"/></linearGradient></defs>
   <rect width="192" height="192" rx="40" fill="url(#g)"/>
-  <rect x="8" y="8" width="176" height="176" rx="33" fill="none" stroke="#bb8249" stroke-opacity=".65" stroke-width="2"/>
-  <path d="M137 50c-16-10-31-13-44-11-31 4-47 28-47 57s16 53 47 57c13 2 28-1 44-11" fill="none" stroke="url(#gold)" stroke-width="10" stroke-linecap="round"/>
-  <path d="M69 163h54" stroke="#cf9f65" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+  <rect x="8" y="8" width="176" height="176" rx="33" fill="none" stroke="#f05479" stroke-opacity=".65" stroke-width="2"/>
+  <path d="M137 50c-16-10-31-13-44-11-31 4-47 28-47 57s16 53 47 57c13 2 28-1 44-11" fill="none" stroke="url(#ruby)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M69 163h54" stroke="#ed6b8b" stroke-width="2" stroke-linecap="round" opacity=".7"/>
 </svg>
