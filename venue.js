@@ -261,7 +261,7 @@ function renderEvents(events) {
   const grid = $('#event-grid'); grid.replaceChildren();
   for (const event of events) {
     const card = document.createElement('article'); card.className = 'event-card';
-    const type = document.createElement('span'); type.className = 'event-index'; type.textContent = 'TÂN DESIGN · EVENT';
+    const type = document.createElement('span'); type.className = 'event-index'; type.textContent = 'CERA · EVENT';
     const symbol = document.createElement('span'); symbol.className = 'event-symbol'; symbol.textContent = '✦';
     const title = document.createElement('h3'); title.textContent = event.title;
     const info = document.createElement('p'); info.textContent = event.description || '';
@@ -410,7 +410,7 @@ function initGalleryLightbox() {
     document.getElementById('lightbox-image').src = image.currentSrc || image.src;
     document.getElementById('lightbox-image').alt = image.alt;
     document.getElementById('lightbox-title').textContent = image.closest('figure')?.querySelector('figcaption strong')?.textContent || 'Ảnh minh họa bar & lounge';
-    document.getElementById('lightbox-caption').textContent = 'Ảnh minh họa · Không phải ảnh chụp tại Tân Design';
+    document.getElementById('lightbox-caption').textContent = 'Ảnh chụp thực tế · Cera Bar & Lounge';
     document.getElementById('lightbox-counter').textContent = (current + 1) + ' / ' + images.length;
   };
   zoomButtons.forEach((button, index) => button.addEventListener('click', () => {
